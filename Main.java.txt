@@ -1,0 +1,45 @@
+Main.java
+
+import java.util.Scanner;
+
+class BankAccount {
+    double balance;
+    BankAccount(double b){ balance=b; }
+    void deposit(double a){
+        if(a>0){ balance+=a; System.out.println("Deposited: "+a); }
+        else System.out.println("Invalid amount");
+    }
+    void withdraw(double a){
+        if(a<=0) System.out.println("Invalid amount");
+        else if(a<=balance){ balance-=a; System.out.println("Withdrawn: "+a); }
+        else System.out.println("Insufficient balance");
+    }
+    void checkBalance(){ System.out.println("Balance: "+balance); }
+}
+
+class ATM{
+    BankAccount acc;
+    Scanner sc=new Scanner(System.in);
+    ATM(BankAccount a){ acc=a; }
+    void start(){
+        int c;
+        do{
+            System.out.println("\n1.Deposit 2.Withdraw 3.Balance 4.Exit");
+            System.out.print("Choice: "); c=sc.nextInt();
+            switch(c){
+                case 1: System.out.print("Amount: "); acc.deposit(sc.nextDouble()); break;
+                case 2: System.out.print("Amount: "); acc.withdraw(sc.nextDouble()); break;
+                case 3: acc.checkBalance(); break;
+                case 4: System.out.println("Exiting..."); break;
+                default: System.out.println("Invalid choice");
+            }
+        }while(c!=4);
+    }
+}
+
+public class Main{
+    public static void main(String[] args){
+        new ATM(new BankAccount(1000)).start();
+    }
+}
+
